@@ -12,7 +12,7 @@ def insert_date_between_week(week_data):
     return week_data
 
 
-def duplicate_each_row_for_seven_times(week_data, order_by=['week', 'day']):
+def duplicate_each_row_for_seven_times(week_data, order_by=['week', 'day'], daily_ratio=[17.57, 19.52, 20.04, 19.23, 18.97, 3.01, 1.66]):
     # duplicate each row for seven times
     week_data_origin = week_data.copy()
     # create a blank dataframe
@@ -20,6 +20,7 @@ def duplicate_each_row_for_seven_times(week_data, order_by=['week', 'day']):
 
     for i in range(7):
         week_data_origin['day'] = pd.Timedelta(days=i)
+        week_data_origin['daily_ratio'] = daily_ratio[i] / 100
         # week_data_duplicate = week_data_duplicate.append(week_data_origin)
         week_data_duplicate = pd.concat(
             [week_data_duplicate, week_data_origin])
