@@ -42,11 +42,10 @@ def add_date_to_each_row(week_data):
 
 
 def convert_week_to_date_and_split_weekly_quantity(week_data):
-    # expand week to date and split qty to qty_daily
+    # expand week to date and apply daily_ratio to qty_daily
     week_data['date'] = week_data['week'].apply(
         lambda x: pd.to_datetime(x, format='%V'))
-    week_data['qty_daily'] = week_data['qty'].apply(
-        lambda x: x / 7)
+    week_data['qty_daily'] = week_data['qty'] * week_data['daily_ratio']
     return week_data
 
 
@@ -59,11 +58,11 @@ def flow_convert_week_to_date(week_data):
 
 
 def convert_week_to_date_and_split_weekly_movement(week_data):
-    # expand week to date and split net_movement to daily_net_qty
+    # expand week to date and apply daily_ratio to net_movement
     week_data['date'] = week_data['week'].apply(
         lambda x: pd.to_datetime(x, format='%V'))
-    week_data['daily_net_qty'] = week_data['net_movement'].apply(
-        lambda x: x / 7)
+    week_data['daily_net_qty'] = week_data['net_movement'] * \
+        week_data['daily_ratio']
     return week_data
 
 
